@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "server",
   "main": "src/index.ts",
-  "compatibility_date": "2025-03-02"
+  "compatibility_date": "2025-03-02",
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
@@ -21,13 +21,14 @@
   //     "bucket_name": "my-bucket"
   //   }
   // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "trade-in-db",
+      "database_id": "5300cec5-665a-4f23-9e11-66feb86493cb",
+      "migrations_dir": "drizzle/migrations"
+    }
+  ]
   // "ai": {
   //   "binding": "AI"
   // },

@@ -2,6 +2,8 @@
   "name": "server",
   "scripts": {
     "dev": "wrangler dev",
+    "db:generate": "drizzle-kit generate",
+    "db:up": "drizzle-kit up:sqlite",
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
