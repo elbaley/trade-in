@@ -29,6 +29,20 @@
       "when": 1740959869892,
       "tag": "0003_yellow_black_bolt",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1741081325786,
+      "tag": "0004_complete_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1741082712765,
+      "tag": "0005_slim_moonstone",
+      "breakpoints": true
     }
   ]
 }

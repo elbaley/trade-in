@@ -8,8 +8,8 @@ export const modelTradeConditionOptionsTable = sqliteTable(
     questionId: int("question_id")
       .notNull()
       .references(() => modelTradeConditionQuestionsTable.id),
-    label: text("label").notNull(),
+    labelKey: text("label_key").notNull(),
+    descriptionKey: text("description_key"),
     deduction: int("deduction").notNull(),
-    description: text("description"),
   },
 );
