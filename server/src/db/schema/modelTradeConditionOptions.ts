@@ -9,7 +9,7 @@ export const modelTradeConditionOptionsTable = sqliteTable(
       .notNull()
       .references(() => modelTradeConditionQuestionsTable.id),
     labelKey: text("label_key").notNull(),
-    descriptionKey: text("description_key"),
+    descriptionKey: text("description_key").notNull(),
     deduction: int("deduction").notNull(),
   },
 );
