@@ -43,6 +43,13 @@
       "when": 1741082712765,
       "tag": "0005_slim_moonstone",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1741094037569,
+      "tag": "0006_rainy_human_torch",
+      "breakpoints": true
     }
   ]
 }
