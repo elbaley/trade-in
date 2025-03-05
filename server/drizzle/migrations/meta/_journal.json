@@ -50,6 +50,13 @@
       "when": 1741094037569,
       "tag": "0006_rainy_human_torch",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1741168906821,
+      "tag": "0007_clean_enchantress",
+      "breakpoints": true
     }
   ]
 }
