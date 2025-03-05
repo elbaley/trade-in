@@ -11,9 +11,9 @@ export const tradeOffersTable = sqliteTable("trade_offers", {
   email: text("email"),
   phoneNumber: text("phone_number"),
   status: text("status")
-    .default("pending")
+    .default("draft")
     .notNull()
-    .$type<"pending" | "accepted" | "rejected" | "done">(),
+    .$type<"draft" | "pending" | "accepted" | "rejected" | "done">(),
   createdAt: text("created_at")
     .default(sql`(CURRENT_TIMESTAMP)`)
     .notNull(),

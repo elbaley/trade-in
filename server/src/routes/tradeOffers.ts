@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { Bindings } from "..";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { modelsTable } from "../db/schema/models";
 import {
   modelTradeConditionOptionsRelations,
@@ -126,6 +126,68 @@ app.post(
       return c.json({
         status: true,
         data: { offerId: offerRecord[0].id, offerPrice },
+      });
+    } catch (error) {
+      return c.json({
+        status: false,
+        message: (error as Error).message,
+      });
+    }
+  },
+);
+
+app.post(
+  "/acceptOffer",
+  zValidator(
+    "json",
+    z.object({
+      offerId: z.number(),
+      firstName: z.string().min(1),
+      lastName: z.string().min(1),
+      email: z.string().email(),
+      phoneNumber: z.string().min(10), // Telefon numarası minimum 10 haneli
+    }),
+  ),
+  async (c) => {
+    const { offerId, firstName, lastName, email, phoneNumber } =
+      c.req.valid("json");
+    const db = drizzle(c.env.DB, {
+      schema: {
+        modelsTable,
+        modelTradeConditionOptionsTable,
+        modelTradeConditionOptionsRelations,
+        modelTradeConditionQuestionsRelations,
+        modelTradeConditionQuestionsTable,
+        tradeOffersTable,
+      },
+    });
+
+    try {
+      const offer = await db.query.tradeOffersTable.findFirst({
+        where: and(
+          eq(tradeOffersTable.id, offerId),
+          eq(tradeOffersTable.status, "draft"),
+        ),
+      });
+
+      if (!offer) {
+        return c.json({ status: false, message: "Offer not found #O001" });
+      }
+
+      await db
+        .update(tradeOffersTable)
+        .set({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          status: "pending",
+        })
+        .where(eq(tradeOffersTable.id, offerId));
+
+      return c.json({
+        status: true,
+        data: { offerId, message: "Offer accepted" },
       });
     } catch (error) {
       return c.json({
