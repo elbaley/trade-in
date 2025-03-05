@@ -57,6 +57,20 @@
       "when": 1741168906821,
       "tag": "0007_clean_enchantress",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1741173695361,
+      "tag": "0008_known_wild_child",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1741174263153,
+      "tag": "0009_familiar_random",
+      "breakpoints": true
     }
   ]
 }

@@ -29,10 +29,10 @@ app.post(
   zValidator(
     "json",
     z.object({
-      label_tr: z.string().min(3),
-      label_en: z.string().min(3),
-      description_tr: z.string().min(3),
-      description_en: z.string().min(3),
+      label_tr: z.string().min(2),
+      label_en: z.string().min(2),
+      description_tr: z.string().min(2),
+      description_en: z.string().min(2),
       deduction: z.number().min(0),
     }),
   ),
@@ -103,10 +103,10 @@ app.put(
   zValidator(
     "json",
     z.object({
-      label_tr: z.string().min(3).optional(),
-      label_en: z.string().min(3).optional(),
-      description_tr: z.string().min(3).optional(),
-      description_en: z.string().min(3).optional(),
+      label_tr: z.string().min(2).optional(),
+      label_en: z.string().min(2).optional(),
+      description_tr: z.string().min(2).optional(),
+      description_en: z.string().min(2).optional(),
       deduction: z.number().min(0).optional(),
     }),
   ),
@@ -186,7 +186,7 @@ app.put(
         );
       }
 
-      if (deduction) {
+      if (typeof deduction === "number") {
         updatePromises.push(
           db
             .update(modelTradeConditionOptionsTable)

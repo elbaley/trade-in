@@ -29,8 +29,8 @@ app.post(
   zValidator(
     "json",
     z.object({
-      tr: z.string().min(3),
-      en: z.string().min(3),
+      tr: z.string().min(2),
+      en: z.string().min(2),
     }),
   ),
   async (c) => {
@@ -86,8 +86,8 @@ app.put(
   zValidator(
     "json",
     z.object({
-      tr: z.string().min(3).optional(),
-      en: z.string().min(3).optional(),
+      tr: z.string().min(2).optional(),
+      en: z.string().min(2).optional(),
     }),
   ),
   async (c) => {

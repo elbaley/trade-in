@@ -5,8 +5,14 @@ import { modelsTable } from "../db/schema/models";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { eq } from "drizzle-orm";
-import { modelTradeConditionQuestionsTable } from "../db/schema/modelTradeConditionsQuestions";
-import { modelTradeConditionOptionsTable } from "../db/schema/modelTradeConditionOptions";
+import {
+  modelTradeConditionQuestionsRelations,
+  modelTradeConditionQuestionsTable,
+} from "../db/schema/modelTradeConditionsQuestions";
+import {
+  modelTradeConditionOptionsRelations,
+  modelTradeConditionOptionsTable,
+} from "../db/schema/modelTradeConditionOptions";
 import { translationsTable } from "../db/schema/translations";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -29,6 +35,8 @@ app.get("/:id", async (c) => {
       modelsTable,
       modelTradeConditionOptionsTable,
       modelTradeConditionQuestionsTable,
+      modelTradeConditionQuestionsRelations,
+      modelTradeConditionOptionsRelations,
       translationsTable,
     },
   });
@@ -47,6 +55,9 @@ app.get("/:id", async (c) => {
     const questions = await db.query.modelTradeConditionQuestionsTable.findMany(
       {
         where: eq(modelTradeConditionQuestionsTable.modelId, id),
+        with: {
+          options: true,
+        },
       },
     );
 
@@ -55,10 +66,7 @@ app.get("/:id", async (c) => {
     }
 
     // 3. Get related options for each question
-    const questionIds = questions.map((q) => q.id);
-    const options = await db.query.modelTradeConditionOptionsTable.findMany({
-      where: (row, { inArray }) => inArray(row.questionId, questionIds),
-    });
+    const options = questions.map((q) => q.options).flat();
 
     // 4. Get translations for questions and options
     const translationKeys = [
@@ -78,17 +86,20 @@ app.get("/:id", async (c) => {
     );
 
     // 5. Format the questions
-    const formattedQuestions = questions.map((q) => ({
-      question: translationMap[q.questionKey] ?? q.questionKey,
-      options: options
-        .filter((o) => o.questionId === q.id)
-        .map((o) => ({
-          id: o.id,
-          label: translationMap[o.labelKey] || o.labelKey,
-          description: translationMap[o.descriptionKey] || o.descriptionKey,
-          deduction: o.deduction,
-        })),
-    }));
+    const formattedQuestions = questions
+      .filter((q) => q.options.length > 0)
+      .map((q) => ({
+        id: q.id,
+        question: translationMap[q.questionKey] ?? q.questionKey,
+        options: options
+          .filter((o) => o.questionId === q.id)
+          .map((o) => ({
+            id: o.id,
+            label: translationMap[o.labelKey] || o.labelKey,
+            description: translationMap[o.descriptionKey] || o.descriptionKey,
+            deduction: o.deduction,
+          })),
+      }));
 
     return c.json({
       status: true,

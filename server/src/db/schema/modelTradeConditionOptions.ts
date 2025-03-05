@@ -1,5 +1,6 @@
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { modelTradeConditionQuestionsTable } from "./modelTradeConditionsQuestions";
+import { relations } from "drizzle-orm";
 
 export const modelTradeConditionOptionsTable = sqliteTable(
   "model_trade_condition_options",
@@ -12,4 +13,14 @@ export const modelTradeConditionOptionsTable = sqliteTable(
     descriptionKey: text("description_key").notNull(),
     deduction: int("deduction").notNull(),
   },
+);
+
+export const modelTradeConditionOptionsRelations = relations(
+  modelTradeConditionOptionsTable,
+  ({ one }) => ({
+    question: one(modelTradeConditionQuestionsTable, {
+      fields: [modelTradeConditionOptionsTable.questionId],
+      references: [modelTradeConditionQuestionsTable.id],
+    }),
+  }),
 );
