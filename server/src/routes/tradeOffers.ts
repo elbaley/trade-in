@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
-import { Bindings } from "..";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { and, eq } from "drizzle-orm";
@@ -14,8 +13,9 @@ import {
   modelTradeConditionQuestionsRelations,
   modelTradeConditionQuestionsTable,
 } from "../db/schema/modelTradeConditionsQuestions";
+import { HonoEnv } from "../types";
 
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<HonoEnv>();
 
 app.post(
   "/getOffer",

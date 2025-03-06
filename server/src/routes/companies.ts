@@ -1,14 +1,17 @@
 import { Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
-import { Bindings } from "..";
 import { companiesTable } from "../db/schema/companies";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { eq } from "drizzle-orm";
+import { authMiddleware } from "../auth/authMiddleware";
+import { HonoEnv } from "../types";
 
-const app = new Hono<{ Bindings: Bindings }>();
+const app = new Hono<HonoEnv>();
 
 app.get("/", async (c) => {
+  const user = c.get("user");
+  console.log(user);
   const db = drizzle(c.env.DB);
   const result = await db.select().from(companiesTable).all();
 
@@ -20,6 +23,7 @@ app.get("/", async (c) => {
 
 app.post(
   "/",
+  authMiddleware,
   zValidator(
     "json",
     z.object({
@@ -50,6 +54,7 @@ app.post(
 
 app.put(
   "/:id",
+  authMiddleware,
   zValidator(
     "json",
     z.object({
@@ -80,7 +85,7 @@ app.put(
   },
 );
 
-app.delete("/:id", async (c) => {
+app.delete("/:id", authMiddleware, async (c) => {
   const id = c.req.param("id");
   const db = drizzle(c.env.DB);
   try {
