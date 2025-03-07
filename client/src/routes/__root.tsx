@@ -1,11 +1,15 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
+  component: () => {
+    return (
+      <>
+        <LanguageSwitcher />
+        <Outlet />
+        <TanStackRouterDevtools />
+      </>
+    );
+  },
 });

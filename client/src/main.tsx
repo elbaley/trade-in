@@ -1,4 +1,5 @@
 import { StrictMode } from "react";
+import "./i18n";
 import ReactDOM from "react-dom/client";
 import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
@@ -8,6 +9,7 @@ import { routeTree } from "./routeTree.gen";
 // Create a new router instance
 const router = createRouter({
   routeTree,
+  context: undefined!,
   defaultNotFoundComponent: () => {
     return (
       <div>
