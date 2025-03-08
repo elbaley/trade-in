@@ -1,4 +1,15 @@
 {
   "welcome": "Welcome",
-  "adminTest": "Admin EN"
+  "adminTest": "Admin EN",
+  "header": {
+    "language": {
+      "label": "Language",
+      "english": "English",
+      "turkish": "Türkçe"
+    },
+    "login": "Login"
+  },
+  "tradeIn": "Trade In",
+  "heroDescription": "With Trade In you can sell your phone or trade it in just a few steps. A hassle-free, fast and secure trade-in experience awaits you!",
+  "getStarted": "Get Started"
 }

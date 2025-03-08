@@ -1,4 +1,15 @@
 {
   "welcome": "Hoşgeldiniz",
-  "adminTest": "Admin TR"
+  "adminTest": "Admin TR",
+  "header": {
+    "language": {
+      "label": "Dil",
+      "english": "English",
+      "turkish": "Türkçe"
+    },
+    "login": "Giriş"
+  },
+  "tradeIn": "Takasla",
+  "heroDescription": "Takasla ile sadece birkaç adımda telefonunu satabilir veya takas yapabilirsin. Zahmetsiz, hızlı ve güvenlilir bir takas süreci seni bekliyor!",
+  "getStarted": "Hemen Başla"
 }

@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import "./i18n";
+import "./index.css";
 import ReactDOM from "react-dom/client";
 import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
