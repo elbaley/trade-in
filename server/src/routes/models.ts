@@ -19,8 +19,15 @@ import { HonoEnv } from "../types";
 const app = new Hono<HonoEnv>();
 
 app.get("/", async (c) => {
+  const companyId = c.req.query("companyId");
   const db = drizzle(c.env.DB);
-  const result = await db.select().from(modelsTable).all();
+  const result = companyId
+    ? await db
+        .select()
+        .from(modelsTable)
+        .where(eq(modelsTable.companyId, Number(companyId)))
+        .all()
+    : await db.select().from(modelsTable).all();
 
   return c.json({
     status: true,
