@@ -15,6 +15,9 @@ import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as clientRouteImport } from './routes/(client)/route'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as clientIndexImport } from './routes/(client)/index'
+import { Route as AdminTradeOffersImport } from './routes/admin/trade-offers'
+import { Route as AdminModelsImport } from './routes/admin/models'
+import { Route as AdminCompaniesImport } from './routes/admin/companies'
 
 // Create/Update Routes
 
@@ -41,6 +44,24 @@ const clientIndexRoute = clientIndexImport.update({
   getParentRoute: () => clientRouteRoute,
 } as any)
 
+const AdminTradeOffersRoute = AdminTradeOffersImport.update({
+  id: '/trade-offers',
+  path: '/trade-offers',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminModelsRoute = AdminModelsImport.update({
+  id: '/models',
+  path: '/models',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminCompaniesRoute = AdminCompaniesImport.update({
+  id: '/companies',
+  path: '/companies',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -58,6 +79,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/admin/companies': {
+      id: '/admin/companies'
+      path: '/companies'
+      fullPath: '/admin/companies'
+      preLoaderRoute: typeof AdminCompaniesImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/models': {
+      id: '/admin/models'
+      path: '/models'
+      fullPath: '/admin/models'
+      preLoaderRoute: typeof AdminModelsImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/trade-offers': {
+      id: '/admin/trade-offers'
+      path: '/trade-offers'
+      fullPath: '/admin/trade-offers'
+      preLoaderRoute: typeof AdminTradeOffersImport
+      parentRoute: typeof AdminRouteImport
     }
     '/(client)/': {
       id: '/(client)/'
@@ -91,10 +133,16 @@ const clientRouteRouteWithChildren = clientRouteRoute._addFileChildren(
 )
 
 interface AdminRouteRouteChildren {
+  AdminCompaniesRoute: typeof AdminCompaniesRoute
+  AdminModelsRoute: typeof AdminModelsRoute
+  AdminTradeOffersRoute: typeof AdminTradeOffersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminCompaniesRoute: AdminCompaniesRoute,
+  AdminModelsRoute: AdminModelsRoute,
+  AdminTradeOffersRoute: AdminTradeOffersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -105,10 +153,16 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof clientIndexRoute
   '/admin': typeof AdminRouteRouteWithChildren
+  '/admin/companies': typeof AdminCompaniesRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/trade-offers': typeof AdminTradeOffersRoute
   '/admin/': typeof AdminIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '/admin/companies': typeof AdminCompaniesRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/trade-offers': typeof AdminTradeOffersRoute
   '/': typeof clientIndexRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -117,16 +171,38 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(client)': typeof clientRouteRouteWithChildren
   '/admin': typeof AdminRouteRouteWithChildren
+  '/admin/companies': typeof AdminCompaniesRoute
+  '/admin/models': typeof AdminModelsRoute
+  '/admin/trade-offers': typeof AdminTradeOffersRoute
   '/(client)/': typeof clientIndexRoute
   '/admin/': typeof AdminIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/admin/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/companies'
+    | '/admin/models'
+    | '/admin/trade-offers'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin'
-  id: '__root__' | '/(client)' | '/admin' | '/(client)/' | '/admin/'
+  to:
+    | '/admin/companies'
+    | '/admin/models'
+    | '/admin/trade-offers'
+    | '/'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/(client)'
+    | '/admin'
+    | '/admin/companies'
+    | '/admin/models'
+    | '/admin/trade-offers'
+    | '/(client)/'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 
@@ -163,8 +239,23 @@ export const routeTree = rootRoute
     "/admin": {
       "filePath": "admin/route.tsx",
       "children": [
+        "/admin/companies",
+        "/admin/models",
+        "/admin/trade-offers",
         "/admin/"
       ]
+    },
+    "/admin/companies": {
+      "filePath": "admin/companies.tsx",
+      "parent": "/admin"
+    },
+    "/admin/models": {
+      "filePath": "admin/models.tsx",
+      "parent": "/admin"
+    },
+    "/admin/trade-offers": {
+      "filePath": "admin/trade-offers.tsx",
+      "parent": "/admin"
     },
     "/(client)/": {
       "filePath": "(client)/index.tsx",

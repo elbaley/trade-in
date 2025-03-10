@@ -51,3 +51,13 @@ export type ApiResponse = {
   status: boolean;
   message?: string;
 };
+
+export type StatsResponse = {
+  status: boolean;
+  data: {
+    totalCompanies: number;
+    totalModels: number;
+    totalTradeOffers: number;
+    pendingTradeOffers: number;
+  };
+};

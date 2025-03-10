@@ -11,6 +11,9 @@ import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { useAuth } from "./hooks/useAuth";
 
+// React Query
+const queryClient = new QueryClient();
+
 // Create a new router instance
 const router = createRouter({
   routeTree,
@@ -32,9 +35,6 @@ declare module "@tanstack/react-router" {
   }
 }
 
-// React Query
-const queryClient = new QueryClient();
-
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
@@ -52,7 +52,10 @@ export function App() {
   const authentication = useAuth();
   return (
     <>
-      <RouterProvider router={router} context={{ authentication }} />
+      <RouterProvider
+        router={router}
+        context={{ queryClient, authentication }}
+      />
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster />
     </>

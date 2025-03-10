@@ -31,13 +31,13 @@ export const Hero = () => {
         {t("heroDescription")}
       </p>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button variant={"action"} className="mt-2" size={"lg"}>
             {t("getStarted")}
             <LucideArrowRight />
           </Button>
         </DialogTrigger>
-        <DialogContent className="bg-gray-50 px-0 min-w-[80vw] min-h-[80vh] overflow-y-auto max-h-[95vh]">
+        <DialogContent className="bg-gray-50 px-0 min-w-[80vw] xl:min-w-[50vw] min-h-[80vh] overflow-y-auto max-h-[95vh]">
           {/* <DialogHeader></DialogHeader> */}
           <GetOfferForm />
         </DialogContent>

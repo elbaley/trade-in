@@ -69,7 +69,7 @@ export const Navbar = () => {
         </DropdownMenu>
       ) : (
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button>{t("header.login")}</Button>
           </DialogTrigger>
           <DialogContent className="bg-gray-50 ">
@@ -82,7 +82,7 @@ export const Navbar = () => {
       )}
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button variant={"outline"}>
             <LucideGlobe />
           </Button>

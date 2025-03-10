@@ -38,5 +38,9 @@
   "logout": "Logout",
   "Password": "Password",
   "Enter your password": "Enter your password",
-  "Login": "Login"
+  "Login": "Login",
+  "Companies": "Companies",
+  "Models": "Models",
+  "Trade Offers": "Trade Offers",
+  "Menu": "Menu"
 }
