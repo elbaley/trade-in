@@ -10,6 +10,7 @@ import {
   sessionMiddleware,
   // validateRequestOrigin
 } from "./auth/auth";
+import stats from "./routes/stats";
 
 const app = new Hono<HonoEnv>();
 
@@ -22,5 +23,6 @@ app.route("/models", models);
 app.route("/modelTradeQuestions", modelTradeQuestions);
 app.route("/modelTradeOptions", modelTradeOptions);
 app.route("/tradeOffers", tradeOffers);
+app.route("/stats", stats);
 
 export default app;
