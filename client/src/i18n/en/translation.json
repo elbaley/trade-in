@@ -32,5 +32,11 @@
   "Submit": "Submit",
   "getOfferSuccessTitle": "Congratulations",
   "getOfferSuccessDescription": "Offer has been successfully submitted. We will contact you shortly.",
-  "homePage": "Home"
+  "homePage": "Home",
+  "My Account": "My Account",
+  "Dashboard": "Dashboard",
+  "logout": "Logout",
+  "Password": "Password",
+  "Enter your password": "Enter your password",
+  "Login": "Login"
 }

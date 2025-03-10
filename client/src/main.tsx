@@ -9,6 +9,7 @@ import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
+import { useAuth } from "./hooks/useAuth";
 
 // Create a new router instance
 const router = createRouter({
@@ -41,10 +42,19 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Toaster />
+        <App />
       </QueryClientProvider>
     </StrictMode>,
+  );
+}
+
+export function App() {
+  const authentication = useAuth();
+  return (
+    <>
+      <RouterProvider router={router} context={{ authentication }} />
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Toaster />
+    </>
   );
 }

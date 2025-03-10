@@ -1,6 +1,16 @@
+import {} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -10,9 +20,12 @@ import { Button } from "../ui/button";
 import { LucideCheck, LucideGlobe } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
+import { LoginForm } from "../login-form";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
+  const { user, signOut, initials } = useAuth();
   const currentLang = i18n.resolvedLanguage;
   return (
     <header className="flex px-4 gap-2 z-40 items-center max-w-4xl h-16 bg-white shadow-custom  dark:bg-gray-700 rounded-2xl mx-auto mt-6 max-sm:mx-2">
@@ -33,10 +46,41 @@ export const Navbar = () => {
           <span className="font-medium">{t("tradeIn")}</span>
         </Link>
       </div>
+      {user ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="cursor-pointer">
+            <Avatar>
+              <AvatarFallback className="select-none">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>{t("My Account")}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <Link to="/admin">
+                <DropdownMenuItem>{t("Dashboard")}</DropdownMenuItem>
+              </Link>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={signOut}>{t("logout")}</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Dialog>
+          <DialogTrigger>
+            <Button>{t("header.login")}</Button>
+          </DialogTrigger>
+          <DialogContent className="bg-gray-50 ">
+            <DialogHeader>
+              <DialogTitle>{t("Login")}</DialogTitle>
+            </DialogHeader>
+            <LoginForm />
+          </DialogContent>
+        </Dialog>
+      )}
 
-      <Link to="/admin">
-        <Button>{t("header.login")}</Button>
-      </Link>
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button variant={"outline"}>

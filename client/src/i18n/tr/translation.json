@@ -32,5 +32,11 @@
   "Submit": "Gönder",
   "getOfferSuccessTitle": "Tebrikler",
   "getOfferSuccessDescription": "Teklifiniz başarıyla onaylandı. Size en kısa sürede dönüş yapacağız.",
-  "homePage": "Ana Sayfa"
+  "homePage": "Ana Sayfa",
+  "My Account": "Hesabım",
+  "Dashboard": "Panel",
+  "logout": "Çıkış",
+  "Password": "Şifre",
+  "Enter your password": "Şifrenizi girin",
+  "Login": "Giriş"
 }
