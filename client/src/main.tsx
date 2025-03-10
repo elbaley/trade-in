@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import "./i18n";
+import { Toaster } from "@/components/ui/sonner";
 import "./index.css";
 import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
@@ -28,13 +31,20 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// React Query
+const queryClient = new QueryClient();
+
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Toaster />
+      </QueryClientProvider>
     </StrictMode>,
   );
 }
