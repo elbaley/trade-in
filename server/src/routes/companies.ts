@@ -10,8 +10,6 @@ import { HonoEnv } from "../types";
 const app = new Hono<HonoEnv>();
 
 app.get("/", async (c) => {
-  const user = c.get("user");
-  console.log(user);
   const db = drizzle(c.env.DB);
   const result = await db.select().from(companiesTable).all();
 

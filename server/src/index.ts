@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import { HonoEnv } from "./types";
 import auth from "./routes/auth";
+import { cors } from "hono/cors";
 import companies from "./routes/companies";
 import tradeOffers from "./routes/tradeOffers";
 import models from "./routes/models";
 import modelTradeQuestions from "./routes/modelTradeQuestions";
+import { env } from "hono/adapter";
 import modelTradeOptions from "./routes/modelTradeOptions";
 import {
   sessionMiddleware,
@@ -13,6 +15,16 @@ import {
 import stats from "./routes/stats";
 
 const app = new Hono<HonoEnv>();
+
+app.use("*", async (c, next) => {
+  const corsMiddleware = cors({
+    origin: env<{ ALLOW_ORIGIN: string }>(c).ALLOW_ORIGIN,
+    allowHeaders: ["Origin", "Content-Type", "Authorization"],
+    allowMethods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
+    credentials: true,
+  });
+  await corsMiddleware(c, next);
+});
 
 //app.use("*", validateRequestOrigin);
 app.use("*", sessionMiddleware);
