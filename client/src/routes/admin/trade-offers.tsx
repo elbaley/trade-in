@@ -1,6 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 //@ts-expect-error: i18n is not a module
 import i18n from "../../i18n";
+import { useTradeOffers } from "@/hooks/useTradeOffers";
+import { TradeOffersTable } from "@/components/core/trade-offers-table";
 
 export const Route = createFileRoute("/admin/trade-offers")({
   beforeLoad: ({ context }) => {
@@ -19,5 +21,7 @@ export const Route = createFileRoute("/admin/trade-offers")({
 });
 
 function RouteComponent() {
-  return <h2>Trade Offers</h2>;
+  const { data } = useTradeOffers();
+  const tradeOffers = data?.data;
+  return <TradeOffersTable data={tradeOffers ?? []} />;
 }

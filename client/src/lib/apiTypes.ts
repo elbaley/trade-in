@@ -61,3 +61,20 @@ export type StatsResponse = {
     pendingTradeOffers: number;
   };
 };
+
+export type TradeOffersGetResponse = {
+  status: boolean;
+  data: {
+    id: number;
+    status: "done" | "draft" | "pending" | "accepted" | "rejected";
+    modelId: number;
+    modelName: string;
+    selections: string;
+    offerPrice: number;
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    createdAt: string;
+  }[];
+};

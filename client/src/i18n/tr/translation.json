@@ -68,5 +68,20 @@
   "Total Companies": "Toplam Marka",
   "Total Models": "Toplam Model",
   "Total Trade Offers": "Toplam Takas Teklifi",
-  "Pending Trade Offers": "Bekleyen Takas Teklifi"
+  "Pending Trade Offers": "Bekleyen Takas Teklifi",
+  "modelName": "Model",
+  "offerPrice": "Teklif",
+  "firstName": "İsim",
+  "lastName": "Soyisim",
+  "email": "Email",
+  "phoneNumber": "Telefon",
+  "status": "Durum",
+  "createdAt": "Tarih",
+  "tradeOfferStatus": {
+    "draft": "Taslak",
+    "pending": "Bekliyor",
+    "accepted": "Kabul Edildi",
+    "rejected": "Red",
+    "done": "Tamamlandı"
+  }
 }

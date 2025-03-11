@@ -68,5 +68,20 @@
   "Total Companies": "Total Companies",
   "Total Models": "Total Models",
   "Total Trade Offers": "Total Trade Offers",
-  "Pending Trade Offers": "Pending Trade Offers"
+  "Pending Trade Offers": "Pending Trade Offers",
+  "modelName": "Model",
+  "offerPrice": "Offer Price",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "phoneNumber": "Phone Number",
+  "status": "Status",
+  "createdAt": "Date",
+  "tradeOfferStatus": {
+    "draft": "Draft",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "done": "Done"
+  }
 }

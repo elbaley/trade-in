@@ -56,20 +56,17 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
-  // React Table state'leri
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  // Model oluşturma / düzenleme için sheet state'leri
   const [selectedModel, setSelectedModel] = useState<ModelRow | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [modelName, setModelName] = useState("");
   const [modelCompanyId, setModelCompanyId] = useState("");
   const [maxTradeValue, setMaxTradeValue] = useState("");
 
-  // Yeni model oluşturma mutasyonu
   const createMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/models`, {
@@ -96,7 +93,6 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
     onError: () => toast.error("Failed to create model"),
   });
 
-  // Model güncelleme mutasyonu
   const updateMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch(
@@ -126,7 +122,6 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
     onError: () => toast.error("Failed to update model"),
   });
 
-  // Model silme mutasyonu
   const deleteMutation = useMutation({
     mutationFn: async (modelId: number) => {
       const response = await fetch(
@@ -142,7 +137,6 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
     onError: () => toast.error("Failed to delete model"),
   });
 
-  // Tablonun sütunları
   const columns: ColumnDef<ModelRow>[] = [
     {
       accessorKey: "id",
