@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { and, eq } from "drizzle-orm";
+import { and, eq, ne } from "drizzle-orm";
 import { modelsTable } from "../db/schema/models";
 import {
   modelTradeConditionOptionsRelations,
@@ -16,6 +16,50 @@ import {
 import { HonoEnv } from "../types";
 
 const app = new Hono<HonoEnv>();
+
+app.get("/", async (c) => {
+  const db = drizzle(c.env.DB, {
+    schema: {
+      modelsTable,
+      modelTradeConditionOptionsTable,
+      modelTradeConditionOptionsRelations,
+      modelTradeConditionQuestionsRelations,
+      modelTradeConditionQuestionsTable,
+      tradeOffersTable,
+    },
+  });
+
+  try {
+    // tradeOffersTable ile modelsTable arasında join yaparak modelName alanını alıyoruz.
+    const offers = await db
+      .select({
+        id: tradeOffersTable.id,
+        modelId: tradeOffersTable.modelId, // isteğe bağlı: sadece modelName dönmek için bu satırı çıkarabilirsiniz.
+        modelName: modelsTable.name,
+        selections: tradeOffersTable.selections,
+        offerPrice: tradeOffersTable.offerPrice,
+        firstName: tradeOffersTable.firstName,
+        lastName: tradeOffersTable.lastName,
+        email: tradeOffersTable.email,
+        phoneNumber: tradeOffersTable.phoneNumber,
+        status: tradeOffersTable.status,
+        createdAt: tradeOffersTable.createdAt,
+      })
+      .from(tradeOffersTable)
+      .leftJoin(modelsTable, eq(tradeOffersTable.modelId, modelsTable.id))
+      .where(ne(tradeOffersTable.status, "draft"));
+
+    return c.json({
+      status: true,
+      data: offers,
+    });
+  } catch (error) {
+    return c.json({
+      status: false,
+      message: (error as Error).message,
+    });
+  }
+});
 
 app.post(
   "/getOffer",
