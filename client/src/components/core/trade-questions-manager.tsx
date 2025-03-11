@@ -56,7 +56,8 @@ export function TradeQuestionsManager({ modelId }: { modelId: number }) {
     value: string,
   ) => {
     const newOptions = [...options];
-    newOptions[index][field] = value;
+    // TODO: fix type
+    newOptions[index][field] = value as never;
     setOptions(newOptions);
   };
 

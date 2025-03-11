@@ -14,14 +14,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 import {
   createFileRoute,
   Link,
   Outlet,
   useMatches,
-  useRouter,
 } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { HeadContent } from "@tanstack/react-router";

@@ -2,16 +2,8 @@ import { useTranslation } from "react-i18next";
 import heroVideo from "../../assets/hero.mp4";
 import { Button } from "../ui/button";
 import { LucideArrowRight } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { GetOfferForm } from "../getOfferForm/GetOfferForm";
 export const Hero = () => {
   const { t } = useTranslation();
@@ -38,7 +30,6 @@ export const Hero = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-gray-50 px-0 min-w-[80vw] xl:min-w-[50vw] min-h-[80vh] overflow-y-auto max-h-[95vh]">
-          {/* <DialogHeader></DialogHeader> */}
           <GetOfferForm />
         </DialogContent>
       </Dialog>
