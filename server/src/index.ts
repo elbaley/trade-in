@@ -20,11 +20,17 @@ const app = new Hono<HonoEnv>();
 app.use("*", async (c, next) => {
   const corsMiddleware = cors({
     origin: env<{ ALLOW_ORIGIN: string }>(c).ALLOW_ORIGIN,
-    allowHeaders: ["Origin", "Content-Type", "Authorization"],
+    allowHeaders: [
+      "Origin",
+      "Content-Type",
+      "Authorization",
+      "X-Custom-Header",
+      "Upgrade-Insecure-Requests",
+    ],
     allowMethods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
     credentials: true,
   });
-  await corsMiddleware(c, next);
+  return await corsMiddleware(c, next);
 });
 
 //app.use("*", validateRequestOrigin);

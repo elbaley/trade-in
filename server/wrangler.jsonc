@@ -7,7 +7,7 @@
   //   "nodejs_compat"
   // ],
   "vars": {
-    "ALLOW_ORIGIN": "https://tradeinf.netlify.app"
+    "ALLOW_ORIGIN": "https://tradein.furkanleba.com"
   },
   // "kv_namespaces": [
   //   {

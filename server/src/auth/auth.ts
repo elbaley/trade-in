@@ -25,7 +25,8 @@ export function initializeLucia(D1: D1Database) {
   return new Lucia(adapter, {
     sessionCookie: {
       attributes: {
-        secure: false,
+        secure: true,
+        sameSite: "none",
       },
     },
 
