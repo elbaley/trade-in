@@ -58,5 +58,11 @@
   "Edit Company": "Markayı Düzenle",
   "Company Name": "Marka İsmi",
   "Update": "Güncelle",
-  "Create": "Oluştur"
+  "Create": "Oluştur",
+  "maxTradeValue": "Maksimum Teklif",
+  "New Model": "Yeni Model",
+  "Edit Model": "Modeli Düzenle",
+  "Model Name": "Model İsmi",
+  "Company Id": "Marka ID",
+  "Max Trade Value": "Maksimum Teklif"
 }

@@ -58,5 +58,11 @@
   "Edit Company": "Edit Company",
   "Company Name": "Company Name",
   "Update": "Update",
-  "Create": "Create"
+  "Create": "Create",
+  "maxTradeValue": "Maximum Offer",
+  "New Model": "New Model",
+  "Edit Model": "Edit Model",
+  "Model Name": "Model Name",
+  "Company Id": "Company Id",
+  "Max Trade Value": "Maximum Offer"
 }
