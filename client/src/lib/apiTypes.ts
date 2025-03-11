@@ -27,7 +27,12 @@ export type ModelGetResponse = {
       options: {
         id: number;
         label: string;
+        label_en: string;
+        label_tr: string;
         description: string;
+        description_en: string;
+        description_tr: string;
+
         deduction: number;
       }[];
     }[];

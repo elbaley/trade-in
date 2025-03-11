@@ -43,6 +43,7 @@ import { useTranslation } from "react-i18next";
 import tF from "../../i18n.js";
 import { toast } from "sonner";
 import { Label } from "../ui/label.js";
+import { TradeQuestionsManager } from "./trade-questions-manager.js";
 
 export type ModelRow = {
   id: number;
@@ -63,6 +64,8 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
 
   const [selectedModel, setSelectedModel] = useState<ModelRow | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isTradeQuestionsSheetOpen, setIsTradeQuestionsSheetOpen] =
+    useState(false);
   const [modelName, setModelName] = useState("");
   const [modelCompanyId, setModelCompanyId] = useState("");
   const [maxTradeValue, setMaxTradeValue] = useState("");
@@ -204,6 +207,15 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
               >
                 {tF.t("Edit")}
               </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  // Yeni aksiyon: Trade Questions yönetimi
+                  setSelectedModel(model);
+                  setIsTradeQuestionsSheetOpen(true);
+                }}
+              >
+                {tF.t("Manage Trade Questions")}
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
@@ -221,7 +233,6 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
     },
   ];
 
-  // React Table yapılandırması
   const table = useReactTable({
     data,
     columns,
@@ -361,6 +372,7 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
           </Button>
         </div>
       </div>
+      {/* Sheet for creating/updating models */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent className="px-2 pt-4">
           <h2 className="font-medium text-2xl">
@@ -373,7 +385,6 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
             placeholder={t("Model Name") as string}
             className="mb-2"
           />
-
           <Label>{t("Company Id")}</Label>
           <Input
             value={modelCompanyId}
@@ -399,6 +410,16 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
           >
             {selectedModel ? t("Update") : t("Create")}
           </Button>
+        </SheetContent>
+      </Sheet>
+      <Sheet
+        open={isTradeQuestionsSheetOpen}
+        onOpenChange={setIsTradeQuestionsSheetOpen}
+      >
+        <SheetContent className="px-2 pt-4 overflow-y-auto">
+          {selectedModel && (
+            <TradeQuestionsManager modelId={selectedModel.id} />
+          )}
         </SheetContent>
       </Sheet>
     </div>

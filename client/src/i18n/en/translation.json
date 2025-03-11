@@ -83,5 +83,22 @@
     "accepted": "Accepted",
     "rejected": "Rejected",
     "done": "Done"
-  }
+  },
+  "Manage Trade Questions": "Manage Trade Questions",
+  "Trade Questions": "Trade Questions",
+  "Label": "Label",
+  "Description": "Description",
+  "Deduction": "Deduction",
+  "No options": "No options",
+  "No trade questions found": "No trade questions found",
+  "Edit Trade Question": "Edit Trade Question",
+  "Add New Trade Question": "Add New Trade Question",
+  "Question (TR)": "Question (TR)",
+  "Question (EN)": "Question (EN)",
+  "Options": "Options",
+  "Option Label (TR)": "Option Label (TR)",
+  "Option Label (EN)": "Option Label (EN)",
+  "Option Description (TR)": "Option Description (TR)",
+  "Option Description (EN)": "Option Description (EN)",
+  "Add Option": "Add Option"
 }

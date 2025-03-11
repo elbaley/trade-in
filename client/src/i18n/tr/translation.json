@@ -83,5 +83,22 @@
     "accepted": "Kabul Edildi",
     "rejected": "Red",
     "done": "Tamamlandı"
-  }
+  },
+  "Manage Trade Questions": "Teklif Sorularını Düzenle",
+  "Trade Questions": "Teklif Soruları",
+  "Label": "Seçenek",
+  "Description": "Açıklama",
+  "Deduction": "Kesinti",
+  "No options": "Seçenek yok",
+  "No trade questions found": "Teklif sorusu bulunamadı",
+  "Edit Trade Question": "Teklif Sorusunu Düzenle",
+  "Add New Trade Question": "Yeni Teklif Sorusu",
+  "Question (TR)": "Soru (TR)",
+  "Question (EN)": "Soru (EN)",
+  "Options": "Seçenekler",
+  "Option Label (TR)": "Seçenek (TR)",
+  "Option Label (EN)": "Seçenek (EN)",
+  "Option Description (TR)": "Seçenek Açıklaması (TR)",
+  "Option Description (EN)": "Seçenek Açıklaması (EN)",
+  "Add Option": "Seçenek Ekle"
 }
