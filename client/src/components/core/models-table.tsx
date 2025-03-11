@@ -42,6 +42,7 @@ import { useTranslation } from "react-i18next";
 //@ts-expect-error: i18n is not a module
 import tF from "../../i18n.js";
 import { toast } from "sonner";
+import { Label } from "../ui/label.js";
 
 export type ModelRow = {
   id: number;
@@ -371,18 +372,22 @@ export function ModelsTable({ data }: { data: ModelRow[] }) {
           <h2 className="font-medium text-2xl">
             {selectedModel ? t("Edit Model") : t("New Model")}
           </h2>
+          <Label>{t("Model Name")}</Label>
           <Input
             value={modelName}
             onChange={(e) => setModelName(e.target.value)}
             placeholder={t("Model Name") as string}
             className="mb-2"
           />
+
+          <Label>{t("Company Id")}</Label>
           <Input
             value={modelCompanyId}
             onChange={(e) => setModelCompanyId(e.target.value)}
             placeholder={t("Company Id") as string}
             className="mb-2"
           />
+          <Label>{t("Max Trade Value")}</Label>
           <Input
             value={maxTradeValue}
             onChange={(e) => setMaxTradeValue(e.target.value)}

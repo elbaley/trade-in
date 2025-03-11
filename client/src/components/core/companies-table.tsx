@@ -43,6 +43,7 @@ import { useTranslation } from "react-i18next";
 //@ts-expect-error: i18n is not a module
 import tF from "../../i18n.js";
 import { toast } from "sonner";
+import { Label } from "../ui/label.js";
 
 export type CompanyRow = {
   id: number;
@@ -54,20 +55,17 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
-  // React Table state'leri
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  // Şirket oluşturma / düzenleme için sheet state'leri
   const [selectedCompany, setSelectedCompany] = useState<CompanyRow | null>(
     null,
   );
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [companyName, setCompanyName] = useState("");
 
-  // Yeni şirket oluşturma mutasyonu
   const createMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch(
@@ -91,7 +89,6 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
     onError: () => toast.error("Failed to create company"),
   });
 
-  // Şirket güncelleme mutasyonu
   const updateMutation = useMutation({
     mutationFn: async () => {
       const response = await fetch(
@@ -115,7 +112,6 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
     onError: () => toast.error("Failed to update company"),
   });
 
-  // Şirket silme mutasyonu
   const deleteMutation = useMutation({
     mutationFn: async (companyId: number) => {
       const response = await fetch(
@@ -131,7 +127,6 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
     onError: () => toast.error("Failed to delete company"),
   });
 
-  // Tablonun sütunları
   const columns: ColumnDef<CompanyRow>[] = [
     {
       accessorKey: "id",
@@ -196,7 +191,6 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
     },
   ];
 
-  // React Table yapılandırması
   const table = useReactTable({
     data,
     columns,
@@ -339,6 +333,7 @@ export function CompaniesTable({ data }: { data: CompanyRow[] }) {
           <h2 className="font-medium text-2xl">
             {selectedCompany ? t("Edit Company") : t("New Company")}
           </h2>
+          <Label>{t("Company Name")}</Label>
           <Input
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
