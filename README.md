@@ -32,14 +32,14 @@ https://github.com/user-attachments/assets/da8f3081-a238-4042-88d7-192117485842
 
 ### Server
 
-- **Cloudflare Workers & D1:**  
-- **Hono:**  
-- **Drizzle:**  
-- **Lucia:**  
+- **Cloudflare Workers & D1**  
+- **Hono**  
+- **Drizzle**  
+- **Lucia**  
 
 ### Client
 
-- **Vite & React:**  
-- **TanStack Router & TanStack Query:**  
-- **shadcn Components:**  
-- **react-i18next:**  
+- **Vite & React**  
+- **TanStack Router & TanStack Query**  
+- **shadcn Components**  
+- **react-i18next**  
