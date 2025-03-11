@@ -64,5 +64,9 @@
   "Edit Model": "Modeli Düzenle",
   "Model Name": "Model İsmi",
   "Company Id": "Marka ID",
-  "Max Trade Value": "Maksimum Teklif"
+  "Max Trade Value": "Maksimum Teklif",
+  "Total Companies": "Toplam Marka",
+  "Total Models": "Toplam Model",
+  "Total Trade Offers": "Toplam Takas Teklifi",
+  "Pending Trade Offers": "Bekleyen Takas Teklifi"
 }

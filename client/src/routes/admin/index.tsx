@@ -3,6 +3,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import i18n from "../../i18n";
 import { statsOptions } from "@/api/stats";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/admin/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(statsOptions),
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/admin/")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const statsQuery = useSuspenseQuery(statsOptions);
   const stats = statsQuery.data.data;
 
@@ -30,19 +32,21 @@ function RouteComponent() {
       <div className="grid auto-rows-min gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="aspect-video relative rounded-sm bg-muted/50 px-5 py-3">
           <p className="text-secondary tracking-tight text-md">
-            Total Companies
+            {t("Total Companies")}
           </p>
           <h2 className="text-6xl font-medium pt-2">{stats.totalCompanies}</h2>
           <hr className="absolute bottom-1 h-1 w-full left-0 bg-blue-500" />
         </div>
         <div className="aspect-video relative rounded-sm bg-muted/50 px-5 py-3">
-          <p className="text-secondary tracking-tight text-md">Total Models</p>
+          <p className="text-secondary tracking-tight text-md">
+            {t("Total Models")}
+          </p>
           <h2 className="text-6xl font-medium pt-2">{stats.totalModels}</h2>
           <hr className="absolute bottom-1 h-1 w-full left-0 bg-blue-500" />
         </div>
         <div className="aspect-video relative rounded-sm bg-muted/50 px-5 py-3">
           <p className="text-secondary tracking-tight text-md">
-            Total Trade Offers
+            {t("Total Trade Offers")}
           </p>
           <h2 className="text-6xl font-medium pt-2">
             {stats.totalTradeOffers}
@@ -51,7 +55,7 @@ function RouteComponent() {
         </div>
         <div className="aspect-video relative rounded-sm bg-muted/50 px-5 py-3">
           <p className="text-secondary tracking-tight text-md">
-            Pending Trade Offers
+            {t("Pending Trade Offers")}
           </p>
           <h2 className="text-6xl font-medium pt-2">
             {stats.pendingTradeOffers}

@@ -6,6 +6,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 export function DashboardLogo() {
   const { t } = useTranslation();
@@ -35,6 +36,7 @@ export function DashboardLogo() {
             <span className="truncate font-semibold">{t("tradeIn")}</span>
             <span className="truncate text-xs">{t("Dashboard")}</span>
           </div>
+          <LanguageSwitcher />
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

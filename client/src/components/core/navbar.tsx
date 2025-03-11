@@ -17,16 +17,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { LucideCheck, LucideGlobe } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 import { LoginForm } from "../login-form";
 import { useAuth } from "@/hooks/useAuth";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 export const Navbar = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { user, signOut, initials } = useAuth();
-  const currentLang = i18n.resolvedLanguage;
   return (
     <header className="flex px-4 gap-2 z-40 items-center max-w-4xl h-16 bg-white shadow-custom  dark:bg-gray-700 rounded-2xl mx-auto mt-6 max-sm:mx-2">
       <div className="flex-1 ">
@@ -81,33 +80,7 @@ export const Navbar = () => {
         </Dialog>
       )}
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant={"outline"}>
-            <LucideGlobe />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()}>
-          <DropdownMenuLabel>{t("header.language.label")}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              i18n.changeLanguage("en");
-            }}
-          >
-            {t("header.language.english")}
-            {currentLang === "en" && <LucideCheck />}
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              i18n.changeLanguage("tr");
-            }}
-          >
-            {t("header.language.turkish")}
-            {currentLang === "tr" && <LucideCheck />}
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <LanguageSwitcher />
     </header>
   );
 };

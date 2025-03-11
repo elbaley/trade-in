@@ -40,8 +40,6 @@ export const Route = createFileRoute("/admin")({
 
 function ClientLayout() {
   const { t } = useTranslation();
-  const { navigate } = useRouter();
-  const { signOut } = useAuth(navigate);
   const matches = useMatches();
   const currentMatch = matches[matches.length - 1];
   const currentTitle = currentMatch?.meta?.[0]?.title?.split("-")[0];

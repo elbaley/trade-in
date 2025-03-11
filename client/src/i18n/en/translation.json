@@ -64,5 +64,9 @@
   "Edit Model": "Edit Model",
   "Model Name": "Model Name",
   "Company Id": "Company Id",
-  "Max Trade Value": "Maximum Offer"
+  "Max Trade Value": "Maximum Offer",
+  "Total Companies": "Total Companies",
+  "Total Models": "Total Models",
+  "Total Trade Offers": "Total Trade Offers",
+  "Pending Trade Offers": "Pending Trade Offers"
 }
