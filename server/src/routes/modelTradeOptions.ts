@@ -2,17 +2,22 @@ import { Hono } from "hono";
 import { drizzle } from "drizzle-orm/d1";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { translationsTable } from "../db/schema/translations";
 import { modelTradeConditionOptionsTable } from "../db/schema/modelTradeConditionOptions";
 import { authMiddleware } from "../auth/authMiddleware";
 import { HonoEnv } from "../types";
+import { modelTradeConditionQuestionsTable } from "../db/schema/modelTradeConditionsQuestions";
 
 const app = new Hono<HonoEnv>();
 
 app.get("/:questionId", async (c) => {
   const questionId = c.req.param("questionId");
-  const db = drizzle(c.env.DB);
+  const db = drizzle(c.env.DB, {
+    schema: {
+      translationsTable,
+    },
+  });
   const result = await db
     .select()
     .from(modelTradeConditionOptionsTable)
@@ -215,34 +220,56 @@ app.put(
 );
 
 app.delete("/:id", authMiddleware, async (c) => {
-  const id = c.req.param("id");
+  const id = Number(c.req.param("id"));
   const db = drizzle(c.env.DB);
+
   try {
-    const { labelKey, descriptionKey } = await db
-      .select({
-        labelKey: modelTradeConditionOptionsTable.labelKey,
-        descriptionKey: modelTradeConditionOptionsTable.descriptionKey,
-      })
-      .from(modelTradeConditionOptionsTable)
-      .where(eq(modelTradeConditionOptionsTable.id, Number(id)))
-      .then((rows) => rows[0]);
+    await db.transaction(async (trx) => {
+      const options = await trx
+        .select({
+          id: modelTradeConditionOptionsTable.id,
+          labelKey: modelTradeConditionOptionsTable.labelKey,
+          descriptionKey: modelTradeConditionOptionsTable.descriptionKey,
+        })
+        .from(modelTradeConditionOptionsTable)
+        .where(eq(modelTradeConditionOptionsTable.questionId, id));
 
-    // Delete translations
-    await db
-      .delete(translationsTable)
-      .where(eq(translationsTable.key, labelKey));
+      if (options.length > 0) {
+        const optionIds = options.map((opt) => opt.id);
+        await trx
+          .delete(modelTradeConditionOptionsTable)
+          .where(inArray(modelTradeConditionOptionsTable.id, optionIds));
 
-    await db
-      .delete(translationsTable)
-      .where(eq(translationsTable.key, descriptionKey));
+        const labelKeys = options.map((opt) => opt.labelKey);
+        const descriptionKeys = options.map((opt) => opt.descriptionKey);
+        await trx
+          .delete(translationsTable)
+          .where(inArray(translationsTable.key, labelKeys));
+        await trx
+          .delete(translationsTable)
+          .where(inArray(translationsTable.key, descriptionKeys));
+      }
 
-    const result = await db
-      .delete(modelTradeConditionOptionsTable)
-      .where(eq(modelTradeConditionOptionsTable.id, Number(id)))
-      .returning();
+      const questionRecord = await trx
+        .select({
+          questionKey: modelTradeConditionQuestionsTable.questionKey,
+        })
+        .from(modelTradeConditionQuestionsTable)
+        .where(eq(modelTradeConditionQuestionsTable.id, id))
+        .then((rows) => rows[0]);
+
+      await trx
+        .delete(modelTradeConditionQuestionsTable)
+        .where(eq(modelTradeConditionQuestionsTable.id, id));
+
+      await trx
+        .delete(translationsTable)
+        .where(eq(translationsTable.key, questionRecord.questionKey));
+    });
+
     return c.json({
       status: true,
-      data: result,
+      data: { id },
     });
   } catch (error) {
     return c.json({

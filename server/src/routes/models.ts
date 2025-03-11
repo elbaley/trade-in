@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { modelsTable } from "../db/schema/models";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import {
   modelTradeConditionQuestionsRelations,
   modelTradeConditionQuestionsTable,
@@ -36,8 +36,13 @@ app.get("/", async (c) => {
 });
 
 app.get("/:id", async (c) => {
-  const lang = c.req.query("lang");
-  const id = Number(c.req.param("id"));
+  const lang = c.req.query("lang") ?? "en-US";
+  const id = parseInt(c.req.param("id"), 10);
+
+  if (isNaN(id)) {
+    return c.json({ status: false, message: "Invalid ID" });
+  }
+
   const db = drizzle(c.env.DB, {
     schema: {
       modelsTable,
@@ -50,7 +55,6 @@ app.get("/:id", async (c) => {
   });
 
   try {
-    // 1. Get model
     const model = await db.query.modelsTable.findFirst({
       where: eq(modelsTable.id, id),
     });
@@ -59,7 +63,6 @@ app.get("/:id", async (c) => {
       return c.json({ status: false, message: "Model not found" });
     }
 
-    // 2. Get all questions related to the model
     const questions = await db.query.modelTradeConditionQuestionsTable.findMany(
       {
         where: eq(modelTradeConditionQuestionsTable.modelId, id),
@@ -73,38 +76,48 @@ app.get("/:id", async (c) => {
       return c.json({ status: true, data: { ...model, questions: [] } });
     }
 
-    // 3. Get related options for each question
-    const options = questions.map((q) => q.options).flat();
+    const options = questions.flatMap((q) => q.options);
 
-    // 4. Get translations for questions and options
-    const translationKeys = [
+    const translationKeys: string[] = [
       ...questions.map((q) => q.questionKey),
       ...options.map((o) => o.labelKey),
       ...options.map((o) => o.descriptionKey),
     ];
 
     const translations = await db.query.translationsTable.findMany({
-      where: (row, { inArray, eq }) =>
-        inArray(row.key, translationKeys) &&
-        eq(row.locale, lang === "tr-TR" ? "tr-TR" : "en-US"),
+      where: (row) => inArray(row.key, translationKeys),
     });
 
-    const translationMap = Object.fromEntries(
-      translations.map((t) => [t.key, t.text]),
+    const translationMap: Record<
+      string,
+      Record<string, string>
+    > = translations.reduce(
+      (acc, t) => {
+        if (!acc[t.key]) acc[t.key] = {};
+        acc[t.key][t.locale] = t.text;
+        return acc;
+      },
+      {} as Record<string, Record<string, string>>,
     );
 
-    // 5. Format the questions
     const formattedQuestions = questions
       .filter((q) => q.options.length > 0)
       .map((q) => ({
         id: q.id,
-        question: translationMap[q.questionKey] ?? q.questionKey,
+        question: translationMap[q.questionKey]?.[lang] ?? q.questionKey,
         options: options
           .filter((o) => o.questionId === q.id)
           .map((o) => ({
             id: o.id,
-            label: translationMap[o.labelKey] || o.labelKey,
-            description: translationMap[o.descriptionKey] || o.descriptionKey,
+            label: translationMap[o.labelKey]?.[lang] || o.labelKey,
+            label_tr: translationMap[o.labelKey]?.["tr-TR"] || o.labelKey,
+            label_en: translationMap[o.labelKey]?.["en-US"] || o.labelKey,
+            description:
+              translationMap[o.descriptionKey]?.[lang] || o.descriptionKey,
+            description_tr:
+              translationMap[o.descriptionKey]?.["tr-TR"] || o.descriptionKey,
+            description_en:
+              translationMap[o.descriptionKey]?.["en-US"] || o.descriptionKey,
             deduction: o.deduction,
           })),
       }));
@@ -114,7 +127,10 @@ app.get("/:id", async (c) => {
       data: { ...model, questions: formattedQuestions },
     });
   } catch (error) {
-    return c.json({ status: false, message: (error as Error).message });
+    return c.json({
+      status: false,
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 });
 

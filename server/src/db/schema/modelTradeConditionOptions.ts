@@ -8,7 +8,9 @@ export const modelTradeConditionOptionsTable = sqliteTable(
     id: int("id").primaryKey({ autoIncrement: true }),
     questionId: int("question_id")
       .notNull()
-      .references(() => modelTradeConditionQuestionsTable.id),
+      .references(() => modelTradeConditionQuestionsTable.id, {
+        onDelete: "cascade",
+      }),
     labelKey: text("label_key").notNull(),
     descriptionKey: text("description_key").notNull(),
     deduction: int("deduction").notNull(),
