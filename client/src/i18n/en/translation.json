@@ -42,5 +42,21 @@
   "Companies": "Companies",
   "Models": "Models",
   "Trade Offers": "Trade Offers",
-  "Menu": "Menu"
+  "Menu": "Menu",
+  "id": "ID",
+  "name": "Name",
+  "Actions": "Actions",
+  "Copy company name": "Copy company name",
+  "Delete": "Delete",
+  "Filter name": "Filter name",
+  "Columns": "Columns",
+  "No results": "No results",
+  "Previous": "Previous",
+  "Next": "Next",
+  "Edit": "Edit",
+  "New Company": "New Company",
+  "Edit Company": "Edit Company",
+  "Company Name": "Company Name",
+  "Update": "Update",
+  "Create": "Create"
 }

@@ -42,5 +42,21 @@
   "Companies": "Markalar",
   "Models": "Modeller",
   "Trade Offers": "Takas Teklifleri",
-  "Menu": "Menü"
+  "Menu": "Menü",
+  "id": "ID",
+  "name": "İsim",
+  "Actions": "Seçenekler",
+  "Copy company name": "Şirket ismini kopyala",
+  "Delete": "Sil",
+  "Filter name": "İsim filtrele",
+  "Columns": "Sütunlar",
+  "No results": "Sonuç bulunamadı",
+  "Previous": "Önceki",
+  "Next": "Sonraki",
+  "Edit": "Düzenle",
+  "New Company": "Yeni Marka",
+  "Edit Company": "Markayı Düzenle",
+  "Company Name": "Marka İsmi",
+  "Update": "Güncelle",
+  "Create": "Oluştur"
 }

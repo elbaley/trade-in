@@ -1,6 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 //@ts-expect-error: i18n is not a module
 import i18n from "../../i18n";
+import { CompaniesTable } from "@/components/core/companies-table";
+import { useCompanies } from "@/hooks/useCompanies";
 
 export const Route = createFileRoute("/admin/companies")({
   beforeLoad: ({ context }) => {
@@ -19,5 +21,11 @@ export const Route = createFileRoute("/admin/companies")({
 });
 
 function RouteComponent() {
-  return <h2>Companies</h2>;
+  const { data } = useCompanies();
+  const companies = data?.data;
+  return (
+    <>
+      <CompaniesTable data={companies ?? []} />
+    </>
+  );
 }
