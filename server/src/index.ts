@@ -13,6 +13,7 @@ import {
   // validateRequestOrigin
 } from "./auth/auth";
 import stats from "./routes/stats";
+import seed from "./routes/seed";
 
 const app = new Hono<HonoEnv>();
 
@@ -36,5 +37,6 @@ app.route("/modelTradeQuestions", modelTradeQuestions);
 app.route("/modelTradeOptions", modelTradeOptions);
 app.route("/tradeOffers", tradeOffers);
 app.route("/stats", stats);
+app.route("/seed", seed);
 
 export default app;

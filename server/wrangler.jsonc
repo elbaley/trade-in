@@ -7,7 +7,7 @@
   //   "nodejs_compat"
   // ],
   "vars": {
-    "ALLOW_ORIGIN": "http://localhost:5173"
+    "ALLOW_ORIGIN": "https://tradeinf.netlify.app"
   },
   // "kv_namespaces": [
   //   {
