@@ -1,5 +1,5 @@
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+// import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { AuthContext } from "../hooks/useAuth";
 import { QueryClient } from "@tanstack/react-query";
 
@@ -13,7 +13,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     return (
       <div className="">
         <Outlet />
-        <TanStackRouterDevtools position="top-right" />
+        {/* <TanStackRouterDevtools position="top-right" /> */}
       </div>
     );
   },

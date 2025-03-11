@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./index.css";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
@@ -56,7 +56,7 @@ export function App() {
         router={router}
         context={{ queryClient, authentication }}
       />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
       <Toaster />
     </>
   );
